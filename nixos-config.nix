@@ -218,7 +218,7 @@ let
     build = nix: args: with args; let
         path_prefix =
           lib.optionalString (!nix && !fast)
-              ''PATH="''${remotePaths["${node}"]}"'';
+              ''env PATH="''${remotePaths["${node}"]}"'';
       in ''
         echo "Building ${if nix then "nix" else "system"}..." >&2
         drv=''${${if nix then "nix_drvs" else "system_drvs"}["${node}"]}
