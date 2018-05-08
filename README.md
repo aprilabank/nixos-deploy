@@ -1,29 +1,30 @@
 # nixos-deploy
 
-A tool similar to `nixops` but limited to remote ssh deployment; essentially `nixos-rebuild` on steroids.
+A tool similar to `nixops` but limited to remote ssh deployment;
+essentially `nixos-rebuild` on steroids.
 
 
 ## Features
 
 - describe and deploy an interdependant set of NixOS machines
-
-- supports all NixOS activation commands (dry-activate, test, switch, boot)
-
-- the `build-image` command builds an image with the target configuration on the build host, ready to be deployed as a VM
-
-- the `install` command makes it easy to `nixos-install` a target configuration on a disk, even from a non-NixOS machine
-
-- the `diff` command uses `nix-diff` toi show the differences between the currently running system and the one to be deloyed
-
+- supports all NixOS activation commands (dry-activate, test, switch,
+  boot)
+- the `build-image` command builds an image with the target
+  configuration on the build host, ready to be deployed as a VM
+- the `install` command makes it easy to `nixos-install` a target
+  configuration on a disk, even from a non-NixOS machine
+- the `diff` command uses `nix-diff` to show the differences between
+  the currently running system and the one to be deployed
 - supports having a separate build host for each node
-
-- The code is modular to make creating new commands (somewhat) easy
+- modular code structure to make creating new commands (relatively)
+  easy
 
 
 ## Usage
 
+```
     nixos-deploy.sh [-f hosts_file] [--fast] [--no-ssh-multiplexing] [BUILD_OPTIONS...] host action
-
+```
 
 ## Example
 
@@ -61,7 +62,8 @@ in
 
 Run
 
-    nixos-deploy.sh -f machines.nix machine1 switch
+```
+nixos-deploy.sh -f machines.nix machine1 switch
+```
 
 to deploy the configuration to `machine1` via ssh.
-
