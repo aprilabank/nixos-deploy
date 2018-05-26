@@ -242,15 +242,16 @@ let
       ${copy_helper build_host target_host ''"$cmd"''}
     '';
 
-    execAction = args: with args; ''
+    execAction = args: with args;
+      let sudo = if action.needsRoot then "sudo " else ""; in ''
       echo "Deploying..." >&2
       cmd=''${cmds["${node}"]}
       ${if target_host == null then ''
-        ${lib.optionalString (action.needsRoot or false) "sudo "}"$cmd"
+        "${sudo} $cmd"
       '' else if build_host == null || build_host == target_host then ''
-        ssh $NIX_SSHOPTS "${target_host}" "$cmd"
+        ssh $NIX_SSHOPTS "${target_host}" "${sudo} $cmd"
       '' else ''
-        ssh $NIX_SSHOPTS "${build_host}" ssh "${target_host}" "$cmd"
+        ssh $NIX_SSHOPTS "${build_host}" ssh "${target_host}" "${sudo} $cmd"
       ''}
     '';
 
